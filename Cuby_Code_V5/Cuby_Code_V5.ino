@@ -37,7 +37,7 @@ const uint8_t OFFSET_ARMR = 20 ;
 const uint8_t OFFSET_MOUTH = 20 ;
 const uint8_t OFFSET_EYES = 20 ;
 const uint8_t OFFSET_BROWL = 20 ;
-const uint8_t OFFSET_BROWR = 10 ;
+const uint8_t OFFSET_BROWR = 20 ;
 const uint8_t OFFSET_FLAG = 20 ;
 
 //Store the most used angle for each servos
