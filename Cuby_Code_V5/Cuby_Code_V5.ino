@@ -32,26 +32,26 @@ Adafruit_PWMServoDriver pca= Adafruit_PWMServoDriver(0x40);
 // 4-Left arm | 5-Right arm | 6-Mouth | 7-Eyes | 8-Left eyebrow | 9-Right eyebrow | 10-Flag
 
 //Offset for all the servos ( only positiv number ) , standar offset at 20 , ajust it if needed
-const uint8_t OFFSET_ARML = 20 ;                      
+const uint8_t OFFSET_ARML = 20 ;                        
 const uint8_t OFFSET_ARMR = 20 ;
 const uint8_t OFFSET_MOUTH = 20 ;
 const uint8_t OFFSET_EYES = 20 ;
 const uint8_t OFFSET_BROWL = 20 ;
-const uint8_t OFFSET_BROWR = 20 ;
+const uint8_t OFFSET_BROWR = 10 ;
 const uint8_t OFFSET_FLAG = 20 ;
 
 //Store the most used angle for each servos
-uint8_t ARML_POS [3] = {20+OFFSET_ARML, 87+OFFSET_ARML, 100+OFFSET_ARML} ;              //Close , reset button , push button
+uint8_t ARML_POS [3] = {20+OFFSET_ARML, 87 +OFFSET_ARML, 100+OFFSET_ARML} ;             //Close , reset button , push button
 uint8_t ARMR_POS [3] = {130+OFFSET_ARMR, 76+OFFSET_ARMR, 50+OFFSET_ARMR} ;              //Close , reset button , push button
-uint8_t MOUTH_POS [3] = {60+OFFSET_MOUTH, 93+OFFSET_MOUTH, 115+OFFSET_MOUTH} ;          //Happy , Sick , Sad
+uint8_t MOUTH_POS [3] = {105+OFFSET_MOUTH, 75+OFFSET_MOUTH, 55+OFFSET_MOUTH} ;         //Happy , Sick , Sad
 uint8_t EYES_POS [3] = {62+OFFSET_EYES, 30+OFFSET_EYES, 80+OFFSET_EYES} ;               //Mid , left , right
-uint8_t BROWL_POS [3] = {25+OFFSET_BROWR, 55+OFFSET_BROWR, 75+OFFSET_BROWR} ;           //Sad , normal , angry
+uint8_t BROWL_POS [3] = {25+OFFSET_BROWL, 55+OFFSET_BROWL, 75+OFFSET_BROWL} ;           //Sad , normal , angry
 uint8_t BROWR_POS [3] = {115+OFFSET_BROWR, 90+OFFSET_BROWR, 75+OFFSET_BROWR} ;          //Sad , normal , angry
-uint8_t FLAG_POS [3] = {20+OFFSET_FLAG, 140+OFFSET_FLAG, 100+OFFSET_FLAG} ;             //Close , half , full
+uint8_t FLAG_POS [3] = {30 +OFFSET_FLAG, 140+OFFSET_FLAG, 90+OFFSET_FLAG} ;             //Close , full , half
 
 //Store the curent position of the servos in this order : 
 // LEFT ARM, RIGHT ARM , MOUTH , EYES , LEFT EYES BROWN , RIGHT EYE BROWN , FLAG
-uint8_t CURRENT_POS [nbPCAServo] = {ARML_POS[0], ARMR_POS[0], MOUTH_POS[0], EYES_POS[62], BROWL_POS[1], BROWR_POS[1], FLAG_POS[0]};      //Current angle of the servo , init 
+uint8_t CURRENT_POS [nbPCAServo] = {ARML_POS[0], ARMR_POS[0], MOUTH_POS[0], EYES_POS[0], BROWL_POS[1], BROWR_POS[1], FLAG_POS[0]};      //Current angle of the servo , init 
 
 //Store the next position of the servos in the same order
 uint8_t NEXT_POS [nbPCAServo] = {CURRENT_POS[0], CURRENT_POS[1], CURRENT_POS[2], CURRENT_POS[3], CURRENT_POS[4], CURRENT_POS[5], CURRENT_POS[6]}; 
@@ -76,7 +76,7 @@ const uint8_t Pin_Strip_1 = 8 ;
 const uint8_t Pin_Strip_2 = 7 ;
 
 //Store the brightness and color of each side in this order  :
-// FRONT , BACK , LEFT , RIGHT , TOP  , EYES LEFT , EYES RIGHT
+// FRONT , BACK , LEFT , RIGHT , TOP  , EYES LEFT , EYES RIGHT 
 uint16_t Current_Side_Color [7] = {0,0,0,0,0,0,0} ;
 uint16_t Next_Side_Color [7] = {120,120,120,120,120,80,200} ;  
 uint8_t Current_Side_Brightness [7] = {100,100,100,100,100,100,100} ;  
@@ -109,7 +109,7 @@ float Time_0 ;      //Store the time origin
 float Waited ;      //Total time waited time-time0
 
 uint16_t RdNumber ;             //Random number chossen for each interaction ( each rd number associated to one animation )
-uint8_t Emo = 0 ;               //The current emotion 
+uint8_t Emo ;               //The current emotion 
 uint8_t Emotional_State = 0 ;   // not really used yet , it's for a ladder of emotion , the more you play , the more the robot is ennoyed
 
 const uint8_t NozLeftPin = 3 ;  //Pin for the left noze
@@ -157,10 +157,10 @@ void setup(){
     Emo = 0 ; //random(0, 11) ;
     Body_Fade_Color = random(0,255); ;
 
-    //Update the servos to there starting position
+    //Init Servos
     Init_Servo();
 
-    //Start cuby 
+    //Start Sequence
     Start_Sequence();
 } 
 
@@ -169,14 +169,55 @@ void loop(){
     
     CheckNoze() ;
 
-    //if factory mode
+    //IF test mode 
     if(TestMode == HIGH){
-      //TestAnimation() ;
-      if(NozRightState == HIGH){
-        Emo = Emo + 1 ;
-        Apply_Emotion(Emo) ;
-        delay(1000) ;
-     }
+      //If left noze activated -> Servos min position
+      if (NozLeftState == HIGH){
+        dt = 3 ;
+        Serial.println("Test Mode : Left , Min");
+        NEXT_POS[0] = ARML_POS[0] ;
+        NEXT_POS[1] = ARMR_POS[0] ;
+        NEXT_POS[2] = MOUTH_POS[2] ;
+        NEXT_POS[3] = EYES_POS[0] ;
+        NEXT_POS[4] = BROWL_POS[1] ;
+        NEXT_POS[5] = BROWR_POS[1] ;
+        NEXT_POS[6] = FLAG_POS[0] ;
+        NEXT_SIDE_COLOR(50,100,150,200,250,190,190) ; 
+        NEXT_SIDE_BRIGHTNESS(254,254,254,254,254,254,254) ;
+        UPDATE() ;
+        delay(1000);
+      
+      }
+      //If right noze activated -> Servos max position
+      else if (NozRightState == HIGH){
+        dt = 3 ;
+        Serial.println("Test Mode : Right , Max");
+        NEXT_POS[0] = ARML_POS[1] ;
+        NEXT_POS[1] = ARMR_POS[1] ;
+        NEXT_POS[2] = MOUTH_POS[1] ;
+        NEXT_POS[3] = EYES_POS[1] ;
+        NEXT_POS[4] = BROWL_POS[2] ;
+        NEXT_POS[5] = BROWR_POS[2] ;
+        NEXT_POS[6] = FLAG_POS[2] ;
+        NEXT_SIDE_COLOR(50,100,150,200,250,190,190) ; 
+        NEXT_SIDE_BRIGHTNESS(254,254,254,254,254,254,254) ;
+        UPDATE() ;
+        delay(5000);
+
+        dt = 3 ;
+        NEXT_POS[0] = ARML_POS[0] ;
+        NEXT_POS[1] = ARMR_POS[0] ;
+        NEXT_POS[2] = MOUTH_POS[0] ;
+        NEXT_POS[3] = EYES_POS[2] ;
+        NEXT_POS[4] = BROWL_POS[0] ;
+        NEXT_POS[5] = BROWR_POS[0] ;
+        NEXT_POS[6] = FLAG_POS[1] ;
+        NEXT_SIDE_COLOR(50,100,150,200,250,190,190) ; 
+        NEXT_SIDE_BRIGHTNESS(254,254,254,254,254,254,254) ;
+        UPDATE() ;
+        delay(5000);
+
+      }
     }
 
     //if not in factory mode 

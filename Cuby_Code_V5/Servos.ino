@@ -6,7 +6,10 @@ void Init_Servo(){
      Serial.println("Init servos");
      for (uint8_t i = 0; i < nbPCAServo; i++) {
         pca.writeMicroseconds(i + 4, AngleToImp(CURRENT_POS[i],i) ); delay(300);       //set servos to its init position
-        pca.setPin(i + 4,0,true);                                                      // deactivate pin i ie motor can be mooved
+        if(i + 4 != 6){
+          pca.setPin(i + 4,0,true);
+        }
+        //pca.setPin(i + 4,0,true);                                                      // deactivate pin i ie motor can be mooved
      }
 }
 

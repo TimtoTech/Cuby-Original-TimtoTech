@@ -50,7 +50,9 @@ void UPDATE(){
     }
     //Desactive l'alim de tout les servos ( evite qu'ils forcent)
     for(uint8_t Servos = 0; Servos < nbPCAServo ; Servos++){
-        pca.setPin(Servos + 4,0,true);
+        if(Servos != 6){
+          pca.setPin(Servos + 4,0,true);
+        }
     }
 }
 
