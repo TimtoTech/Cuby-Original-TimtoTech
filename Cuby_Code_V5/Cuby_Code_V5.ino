@@ -33,12 +33,12 @@ Adafruit_PWMServoDriver pca= Adafruit_PWMServoDriver(0x40);
 
 //Offset for all the servos ( only positiv number ) , standar offset at 20 , ajust it if needed
 const uint8_t OFFSET_ARML = 20 ;                      
-const uint8_t OFFSET_ARMR = 25 ;
+const uint8_t OFFSET_ARMR = 20 ;
 const uint8_t OFFSET_MOUTH = 20 ;
-const uint8_t OFFSET_EYES = 26 ;
+const uint8_t OFFSET_EYES = 20 ;
 const uint8_t OFFSET_BROWL = 20 ;
 const uint8_t OFFSET_BROWR = 20 ;
-const uint8_t OFFSET_FLAG = -15 ;
+const uint8_t OFFSET_FLAG = 20 ;
 
 //Store the most used angle for each servos
 uint8_t ARML_POS [3] = {20+OFFSET_ARML, 87+OFFSET_ARML, 100+OFFSET_ARML} ;              //Close , reset button , push button
@@ -51,7 +51,7 @@ uint8_t FLAG_POS [3] = {20+OFFSET_FLAG, 140+OFFSET_FLAG, 100+OFFSET_FLAG} ;     
 
 //Store the curent position of the servos in this order : 
 // LEFT ARM, RIGHT ARM , MOUTH , EYES , LEFT EYES BROWN , RIGHT EYE BROWN , FLAG
-uint8_t CURRENT_POS [nbPCAServo] = {CURRENT_POS[0], CURRENT_POS[1], CURRENT_POS[2], CURRENT_POS[3], CURRENT_POS[4], CURRENT_POS[5], CURRENT_POS[6]};      //Current angle of the servo , init 
+uint8_t CURRENT_POS [nbPCAServo] = {ARML_POS[0], ARMR_POS[0], MOUTH_POS[0], EYES_POS[62], BROWL_POS[1], BROWR_POS[1], FLAG_POS[0]};      //Current angle of the servo , init 
 
 //Store the next position of the servos in the same order
 uint8_t NEXT_POS [nbPCAServo] = {CURRENT_POS[0], CURRENT_POS[1], CURRENT_POS[2], CURRENT_POS[3], CURRENT_POS[4], CURRENT_POS[5], CURRENT_POS[6]}; 
@@ -154,7 +154,7 @@ void setup(){
     randomSeed(analogRead(0));  
 
     //Random start emo and color for the fade animation
-    Emo = random(0, 11) ;
+    Emo = 0 ; //random(0, 11) ;
     Body_Fade_Color = random(0,255); ;
 
     //Update the servos to there starting position
