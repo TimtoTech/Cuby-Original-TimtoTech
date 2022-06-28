@@ -15,13 +15,13 @@ void Init_Servo(){
 
 //Change the speed or the servo
 void SETUP_SPEED(uint8_t ARML, uint8_t ARMR, uint8_t MOUTH , uint8_t EYES , uint8_t BROWL , uint8_t BROWR , uint8_t FLAG ){
-    Speed_Side[0] = ARML ;
-    Speed_Side[1] = ARMR ; 
-    Speed_Side[2] = MOUTH ;
-    Speed_Side[3] = EYES ;
-    Speed_Side[4] = BROWL ;
-    Speed_Side[5] = BROWR ;
-    Speed_Side[6] = FLAG ;
+    SERVOS_SPEED[0] = ARML ;
+    SERVOS_SPEED[1] = ARMR ; 
+    SERVOS_SPEED[2] = MOUTH ;
+    SERVOS_SPEED[3] = EYES ;
+    SERVOS_SPEED[4] = BROWL ;
+    SERVOS_SPEED[5] = BROWR ;
+    SERVOS_SPEED[6] = FLAG ;
 }
 
 //------------------------------------------------------------------------------------------------------------

@@ -114,44 +114,114 @@ void Animation() {
       break;
       case 107:
           //Blink red , then die 
-          dt = 6 ;
-          Reset_2_arm() ;
-
-
-          //dt = 200 ;
-      //NEXT_POS[0] = ARML_POS[0] ;
-      //NEXT_POS[1] = ARMR_POS[0] ;
-      //NEXT_POS[2] = MOUTH_POS[2] ;
-      //NEXT_POS[3] = EYES_POS[1] ;
-      //NEXT_POS[4] = BROWL_POS[1] ;
-      //NEXT_POS[5] = BROWR_POS[1] ;
-      //NEXT_POS[6] = FLAG_POS[0] ;
-      //SET_SIDE_COLOR(190,190,190,190,190,190,190) ; 
-      //SET_SIDE_BRIGHTNESS(255,255,255,255,255,255,255) ;
-      //NEXT_SIDE_COLOR(0,0,0,0,0,0,0) ;
-      //NEXT_SIDE_BRIGHTNESS(10,10,10,10,10,10,10) ;
-      //UPDATE() ;
-      //delay(10000);
+          dt = 10 ;
+          delay(1000);
+          NEXT_SIDE_BRIGHTNESS(0,0,0,0,0,254,254) ;
+          UPDATE() ;
+          delay(100);
+          SET_SIDE_COLOR(100,100,100,100,100,190,190) ;
+          dt = 0 ;
+          SETUP_SPEED_SIDE(4,4,4,4,4,4,4) ;
+          for(int i = 0; i < 3 ; i++) {
+             NEXT_SIDE_BRIGHTNESS(254,254,254,254,254,254,254) ;
+             UPDATE() ;
+             delay(10);
+             NEXT_SIDE_BRIGHTNESS(0,0,0,0,0,254,254) ;
+             UPDATE() ;
+             delay(10);
+             NEXT_SIDE_BRIGHTNESS(254,254,254,254,254,254,254) ;
+             UPDATE() ;
+             delay(10);
+             NEXT_SIDE_BRIGHTNESS(0,0,0,0,0,254,254) ;
+             UPDATE() ;
+             delay(500);
+          }
+          dt = 5 ;
+          SETUP_SPEED_SIDE(1,1,1,1,1,1,1) ;
+          NEXT_SIDE_BRIGHTNESS(0,0,0,0,0,0,0) ;
+          UPDATE() ;
+          delay(1000);
+          NEXT_POS[2] = MOUTH_POS[2] ;
+          delay(300) ;
+          dt = 50 ;
+          NEXT_POS[2] = MOUTH_POS[1] ;
+          NEXT_POS[4] = BROWL_POS[2] ;
+          NEXT_POS[5] = BROWR_POS[2] ;
+          NEXT_POS[6] = FLAG_POS[1] ;
+          UPDATE() ;
+          delay(300) ;
+          Reset_Left() ;
+          delay(300) ;
+          Apply_Emotion(2);
       break;
       case 108:
           dt = 1 ;
+          SET_SIDE_BRIGHTNESS(254,254,254,254,254,254,254) ;
+          for(int i = 0; i < 25 ; i++) {
+             uint8_t Color_Side_Rd = random(0, 254);
+             SET_SIDE_COLOR(Color_Side_Rd,Color_Side_Rd,Color_Side_Rd,Color_Side_Rd,Color_Side_Rd,254 - Color_Side_Rd,254 - Color_Side_Rd) ;
+             delay(550 - i * 20);
+          }
+          for(int i = 0; i < 75 ; i++) {
+             uint8_t Color_Side_Rd = random(0, 254);
+             SET_SIDE_COLOR(Color_Side_Rd,Color_Side_Rd,Color_Side_Rd,Color_Side_Rd,Color_Side_Rd,254 - Color_Side_Rd,254 - Color_Side_Rd) ;
+             delay(50);
+          }
+          SET_SIDE_BRIGHTNESS(0,0,0,0,0,0,0) ;
+          SET_SIDE_COLOR(0,0,0,0,0,190,190) ;
+          delay(1000);
+          dt = 10 ;
+          NEXT_SIDE_BRIGHTNESS(0,0,0,0,0,254,254) ;
+          UPDATE() ;
           Reset_Left() ;
+          delay(500);
+          Apply_Emotion(random(0, 10));
       break;
       case 109:
           dt = 1 ;
+          NEXT_POS[4] = BROWL_POS[2] ;
+          NEXT_POS[5] = BROWR_POS[2] ;
+          NEXT_POS[6] = FLAG_POS[1] ;
+          NEXT_POS[2] = MOUTH_POS[1] ;
+          UPDATE() ;
+          delay(100);
+          SET_SIDE_BRIGHTNESS(0,0,0,0,0,254,254) ;
+          for(int i = 0; i < 50 ; i++) {
+             uint8_t Color_Side_Rd = random(0, 254);
+             SET_SIDE_COLOR(10,10,10,10,10,Color_Side_Rd,Color_Side_Rd) ;
+             delay(60);
+          }
+          Apply_Emotion(9);
           Reset_2_arm() ;
       break;
       case 110:
+          //Oeil qui bug clein d'oeil
           dt = 1 ;
           Reset_2_arm() ;
       break;
       case 111:
+          //Mouvement bras chelou 
           dt = 1 ;
           Reset_2_arm() ;
       break;
       case 112:
+          //Feinte de remise nez
           dt = 1 ;
           Reset_2_arm() ;
+          //dt = 200 ;
+          //NEXT_POS[0] = ARML_POS[0] ;
+          //NEXT_POS[1] = ARMR_POS[0] ;
+          //NEXT_POS[2] = MOUTH_POS[2] ;
+          //NEXT_POS[3] = EYES_POS[1] ;
+          //NEXT_POS[4] = BROWL_POS[1] ;
+          //NEXT_POS[5] = BROWR_POS[1] ;
+          //NEXT_POS[6] = FLAG_POS[0] ;
+          //SET_SIDE_COLOR(190,190,190,190,190,190,190) ; 
+          //SET_SIDE_BRIGHTNESS(255,255,255,255,255,255,255) ;
+          //NEXT_SIDE_COLOR(0,0,0,0,0,0,0) ;
+          //NEXT_SIDE_BRIGHTNESS(10,10,10,10,10,10,10) ;
+          //UPDATE() ;
+          //delay(10000);
       break;
       case 113:
           dt = 1 ;
@@ -325,31 +395,29 @@ void Animation() {
       case 300:
           dt = 15 ;
           SETUP_SPEED(1, 1, 2, 1, 5, 5, 3) ;
-          NEXT_POS[3] = EYES_POS[2] ;
-          UPDATE() ;
-          delay(1000);
-          NEXT_POS[3] = EYES_POS[0] ;
-          UPDATE() ;
-          delay(1000) ;
           NEXT_POS[2] = MOUTH_POS[0] ;
           NEXT_POS[3] = EYES_POS[1] ;
-          NEXT_POS[4] = 70 ;
-          NEXT_POS[5] = 110 ;
+          NEXT_POS[4] = BROWL_POS[0] ;
+          NEXT_POS[5] = BROWR_POS[2] ;
           UPDATE() ;
-          delay(1000);
-          NEXT_POS[3] = EYES_POS[0] ;
-          NEXT_POS[2] = MOUTH_POS[2] ;
-          NEXT_POS[4] = BROWL_POS[1] ;
-          NEXT_POS[5] = BROWR_POS[1] ;
-          UPDATE() ;     
+          delay(2000);
+          NEXT_POS[3] = EYES_POS[2] ;
+          NEXT_POS[4] = BROWL_POS[2] ;
+          NEXT_POS[5] = BROWR_POS[0] ;
+          UPDATE() ;
+          delay(2000);
       break;
       case 301:
           dt = 10 ;
           SETUP_SPEED(1, 1, 2, 1, 5, 5, 3) ;
+          NEXT_POS[3] = EYES_POS[1] ;
+          delay(100);
+          NEXT_POS[3] = EYES_POS[2] ;
           NEXT_POS[0] = ARML_POS[2] ;
           UPDATE() ;
           delay(100);
           NEXT_POS[0] = ARML_POS[0] ;
+          NEXT_POS[3] = EYES_POS[1] ;
           UPDATE() ;
           delay(1000);
           NEXT_POS[0] = ARML_POS[1] ;
@@ -387,8 +455,24 @@ void Animation() {
           Moove_Flag(8) ;
       break;
       case 305:
+          dt = 30 ;
+          SETUP_SPEED(1, 1, 2, 1, 5, 5, 3) ;
+          NEXT_POS[1] = ARMR_POS[1] + 30 ;
+          UPDATE() ;
+          delay(1000);
+          NEXT_SIDE_BRIGHTNESS(5,5,5,5,5,5,5) ;
+          UPDATE() ;
+          delay(1000);
           dt = 1 ;
-          Moove_Flag(8) ;
+          NEXT_POS[1] = ARMR_POS[2] ;
+          UPDATE() ;
+          delay(100);
+          NEXT_POS[1] = ARMR_POS[0] ;
+          UPDATE() ;
+          delay(2000);
+          NEXT_SIDE_BRIGHTNESS(254,254,254,254,254,254,254) ;
+          UPDATE() ;
+          delay(100);
       break;
   } 
   RdNumber = 0 ;
@@ -403,10 +487,10 @@ void Animation() {
 //NEXT_POS[4] = BROWL_POS[1] ;
 //NEXT_POS[5] = BROWR_POS[1] ;
 //NEXT_POS[6] = FLAG_POS[0] ;
-//
+
 //SET_SIDE_COLOR(190,190,190,190,190,190,190) ; 
 //SET_SIDE_BRIGHTNESS(255,255,255,255,255,255,255) ;
-//        
+        
 //NEXT_SIDE_COLOR(0,0,0,0,0,0,0) ;
 //NEXT_SIDE_BRIGHTNESS(10,10,10,10,10,10,10) ;
 
@@ -535,7 +619,7 @@ void Emotion(int n){
   }
   //colorfull
   if( n == 8 ){
-        dt = 40 ;
+        dt = 20 ;
         Body_Fade_Color = (Body_Fade_Color%254) + 1 ;
         NEXT_SIDE_COLOR(Body_Fade_Color,Body_Fade_Color,Body_Fade_Color,Body_Fade_Color,Body_Fade_Color,190,190);
         UPDATE() ;
@@ -546,10 +630,8 @@ void Emotion(int n){
   }
   //Colorfull 2
   if( n == 9 ){
-        dt = 40 ; 
+        dt = 20 ; 
         NEXT_SIDE_COLOR(random(0, 254),random(0, 254),random(0, 254),random(0, 254),random(0, 254),190,190) ; 
-        UPDATE() ;
-        dt = 10 ;
         NEXT_SIDE_BRIGHTNESS(254,254,254,254,254,254,254) ;
         UPDATE() ;
   }

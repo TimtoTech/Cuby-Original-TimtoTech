@@ -33,20 +33,20 @@ Adafruit_PWMServoDriver pca= Adafruit_PWMServoDriver(0x40);
 
 //Offset for all the servos ( only positiv number ) , standar offset at 20 , ajust it if needed
 const uint8_t OFFSET_ARML = 20 ;                        
-const uint8_t OFFSET_ARMR = 20 ;
+const uint8_t OFFSET_ARMR = 29 ;
 const uint8_t OFFSET_MOUTH = 20 ;
 const uint8_t OFFSET_EYES = 20 ;
-const uint8_t OFFSET_BROWL = 20 ;
-const uint8_t OFFSET_BROWR = 20 ;
-const uint8_t OFFSET_FLAG = 20 ;
+const uint8_t OFFSET_BROWL = 27 ;
+const uint8_t OFFSET_BROWR = 18 ;
+const uint8_t OFFSET_FLAG = 25 ;
 
 //Store the most used angle for each servos
-uint8_t ARML_POS [3] = {20+OFFSET_ARML, 87 +OFFSET_ARML, 100+OFFSET_ARML} ;             //Close , reset button , push button
+uint8_t ARML_POS [3] = {20+OFFSET_ARML, 89 +OFFSET_ARML, 100+OFFSET_ARML} ;             //Close , reset button , push button
 uint8_t ARMR_POS [3] = {130+OFFSET_ARMR, 76+OFFSET_ARMR, 50+OFFSET_ARMR} ;              //Close , reset button , push button
-uint8_t MOUTH_POS [3] = {105+OFFSET_MOUTH, 75+OFFSET_MOUTH, 55+OFFSET_MOUTH} ;         //Happy , Sick , Sad
+uint8_t MOUTH_POS [3] = {55+OFFSET_MOUTH, 75+OFFSET_MOUTH, 110+OFFSET_MOUTH} ;         //Happy , Sick , Sad
 uint8_t EYES_POS [3] = {62+OFFSET_EYES, 30+OFFSET_EYES, 80+OFFSET_EYES} ;               //Mid , left , right
-uint8_t BROWL_POS [3] = {25+OFFSET_BROWL, 55+OFFSET_BROWL, 75+OFFSET_BROWL} ;           //Sad , normal , angry
-uint8_t BROWR_POS [3] = {115+OFFSET_BROWR, 90+OFFSET_BROWR, 75+OFFSET_BROWR} ;          //Sad , normal , angry
+uint8_t BROWL_POS [3] = {25+OFFSET_BROWL, 55+OFFSET_BROWL, 75+OFFSET_BROWL} ;           //angry , normal , Sad
+uint8_t BROWR_POS [3] = {115+OFFSET_BROWR, 90+OFFSET_BROWR, 75+OFFSET_BROWR} ;          //angry , normal , Sad
 uint8_t FLAG_POS [3] = {30 +OFFSET_FLAG, 140+OFFSET_FLAG, 90+OFFSET_FLAG} ;             //Close , full , half
 
 //Store the curent position of the servos in this order : 
@@ -154,7 +154,7 @@ void setup(){
     randomSeed(analogRead(0));  
 
     //Random start emo and color for the fade animation
-    Emo = 0 ; //random(0, 11) ;
+    Emo = random(0, 11) ;
     Body_Fade_Color = random(0,255); ;
 
     //Init Servos
@@ -177,7 +177,7 @@ void loop(){
         Serial.println("Test Mode : Left , Min");
         NEXT_POS[0] = ARML_POS[0] ;
         NEXT_POS[1] = ARMR_POS[0] ;
-        NEXT_POS[2] = MOUTH_POS[2] ;
+        NEXT_POS[2] = MOUTH_POS[0] ;
         NEXT_POS[3] = EYES_POS[0] ;
         NEXT_POS[4] = BROWL_POS[1] ;
         NEXT_POS[5] = BROWR_POS[1] ;
@@ -207,7 +207,7 @@ void loop(){
         dt = 3 ;
         NEXT_POS[0] = ARML_POS[0] ;
         NEXT_POS[1] = ARMR_POS[0] ;
-        NEXT_POS[2] = MOUTH_POS[0] ;
+        NEXT_POS[2] = MOUTH_POS[2] ;
         NEXT_POS[3] = EYES_POS[2] ;
         NEXT_POS[4] = BROWL_POS[0] ;
         NEXT_POS[5] = BROWR_POS[0] ;
@@ -228,6 +228,7 @@ void loop(){
       Display() ;               //Display information if debug needed
       Animation() ;             //Play an animation if the noze have been pushed
       Apply_Emotion(Emo) ;      //Play the current emotion
+      Time_Update() ;
     }
 }
 

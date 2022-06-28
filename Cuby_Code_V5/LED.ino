@@ -51,6 +51,17 @@ void SET_SIDE_BRIGHTNESS(uint8_t FRONT, uint8_t BACK , uint8_t LEFT , uint8_t RI
     FastLED.show();
 }
 
+//Change the speed or the side color
+void SETUP_SPEED_SIDE(uint8_t FRONT, uint8_t BACK , uint8_t LEFT , uint8_t RIGHT , uint8_t TOP , uint8_t EYES_LEFT , uint8_t EYES_RIGHT ){
+    Speed_Side[0] = FRONT ;
+    Speed_Side[1] = BACK ; 
+    Speed_Side[2] = LEFT ;
+    Speed_Side[3] = RIGHT ;
+    Speed_Side[4] = TOP ;
+    Speed_Side[5] = EYES_LEFT ;
+    Speed_Side[6] = EYES_RIGHT ;
+}
+
 //---------------------------------------------------------------APPLY CHANGE-----------------------------------------------------------------------------
 
 //Update the color of each led based on the ALL_SIDE array 

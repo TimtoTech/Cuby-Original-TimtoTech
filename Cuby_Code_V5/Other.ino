@@ -38,7 +38,7 @@ float Min() {
 
 //Generate random waiting fuction every 30 sec
 void Veille() {
-  if(0.50 < Waited - floor(Waited) and Waited - floor(Waited ) < 0.52){
+  if(0.50 < Waited - floor(Waited) and Waited - floor(Waited ) < 0.52 and Waited < 5){
     RdNumber = random(300, 305);
   }
 }
@@ -50,7 +50,7 @@ void CheckNoze() {
   TestMode = digitalRead(TestModePin)  ;
   
   if (NozLeftState == HIGH){
-      RdNumber = random(100, 120) ;
+      RdNumber = 109 ; // random(100, 120) ;
       Time_0 = Min() ;
     }
   else if (NozRightState == HIGH){
