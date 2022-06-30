@@ -50,11 +50,11 @@ void CheckNoze() {
   TestMode = digitalRead(TestModePin)  ;
   
   if (NozLeftState == HIGH){
-      RdNumber = 109 ; // random(100, 120) ;
+      RdNumber = random(100, 131) ;
       Time_0 = Min() ;
     }
   else if (NozRightState == HIGH){
-      RdNumber = random(200, 220) ;
+      RdNumber = random(200, 231) ;
       Time_0 = Min() ;
     }
 }

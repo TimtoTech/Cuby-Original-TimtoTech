@@ -103,8 +103,9 @@ void Start_Sequence(){
     //Turn off leds
     SET_SIDE_COLOR(0,0,0,0,0,0,0) ; 
     SET_SIDE_BRIGHTNESS(0,0,0,0,0,0,0) ;
+    NEXT_POS[2] = MOUTH_POS[2] ;
     UPDATE() ;
-    delay(100) ;
+    delay(200) ;
     //Color eyes
     dt = 5 ;
     SET_SIDE_COLOR(0,0,0,0,0,190,190) ;  

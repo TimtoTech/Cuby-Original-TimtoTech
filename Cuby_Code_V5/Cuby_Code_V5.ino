@@ -41,10 +41,10 @@ const uint8_t OFFSET_BROWR = 18 ;
 const uint8_t OFFSET_FLAG = 25 ;
 
 //Store the most used angle for each servos
-uint8_t ARML_POS [3] = {20+OFFSET_ARML, 89 +OFFSET_ARML, 100+OFFSET_ARML} ;             //Close , reset button , push button
-uint8_t ARMR_POS [3] = {130+OFFSET_ARMR, 76+OFFSET_ARMR, 50+OFFSET_ARMR} ;              //Close , reset button , push button
-uint8_t MOUTH_POS [3] = {55+OFFSET_MOUTH, 75+OFFSET_MOUTH, 110+OFFSET_MOUTH} ;         //Happy , Sick , Sad
-uint8_t EYES_POS [3] = {62+OFFSET_EYES, 30+OFFSET_EYES, 80+OFFSET_EYES} ;               //Mid , left , right
+uint8_t ARML_POS [3] = {20+OFFSET_ARML, 89 +OFFSET_ARML, 115+OFFSET_ARML} ;             //Close , reset button , push button
+uint8_t ARMR_POS [3] = {130+OFFSET_ARMR, 74+OFFSET_ARMR, 50+OFFSET_ARMR} ;              //Close , reset button , push button
+uint8_t MOUTH_POS [3] = {50+OFFSET_MOUTH, 75+OFFSET_MOUTH, 110+OFFSET_MOUTH} ;         //Happy , Sick , Sad
+uint8_t EYES_POS [3] = {62+OFFSET_EYES, 40+OFFSET_EYES, 80+OFFSET_EYES} ;               //Mid , left , right
 uint8_t BROWL_POS [3] = {25+OFFSET_BROWL, 55+OFFSET_BROWL, 75+OFFSET_BROWL} ;           //angry , normal , Sad
 uint8_t BROWR_POS [3] = {115+OFFSET_BROWR, 90+OFFSET_BROWR, 75+OFFSET_BROWR} ;          //angry , normal , Sad
 uint8_t FLAG_POS [3] = {30 +OFFSET_FLAG, 140+OFFSET_FLAG, 90+OFFSET_FLAG} ;             //Close , full , half
